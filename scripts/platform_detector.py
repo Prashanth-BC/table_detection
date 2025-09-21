@@ -36,13 +36,12 @@ class PlatformConfig:
 
         configs = {
             'kaggle': {
-                'data_root': '/kaggle/tmp/data',
-                'working_dir': '/kaggle/working',
-                'input_dir': '/kaggle/input',
-                'project_dir': '/kaggle/working/table_detection',
-                'checkpoints_dir': '/kaggle/working/checkpoints',
-                'logs_dir': '/kaggle/working/logs',
-                'results_dir': '/kaggle/working/results',
+                'data_root': './data',
+                'working_dir': '.',
+                'project_dir': '.',
+                'checkpoints_dir': './checkpoints',
+                'logs_dir': './logs',
+                'results_dir': './results',
                 'max_storage_gb': 73,
                 'gpu_quota_hours': 30,
                 'session_limit_hours': 9,
@@ -50,13 +49,12 @@ class PlatformConfig:
             },
 
             'colab': {
-                'data_root': '/content/data',
-                'working_dir': '/content',
-                'drive_dir': '/content/drive/MyDrive',
-                'project_dir': '/content/drive/MyDrive/table_detection',
-                'checkpoints_dir': '/content/checkpoints',
-                'logs_dir': '/content/logs',
-                'results_dir': '/content/results',
+                'data_root': './data',
+                'working_dir': '.',
+                'project_dir': '.',
+                'checkpoints_dir': './checkpoints',
+                'logs_dir': './logs',
+                'results_dir': './results',
                 'max_storage_gb': 79,
                 'gpu_quota_hours': 12,
                 'session_limit_hours': 12,
@@ -66,7 +64,7 @@ class PlatformConfig:
             'local': {
                 'data_root': './data',
                 'working_dir': '.',
-                'project_dir': './table_detection',
+                'project_dir': '.',
                 'checkpoints_dir': './checkpoints',
                 'logs_dir': './logs',
                 'results_dir': './results',
@@ -120,17 +118,16 @@ class PlatformConfig:
         # Create directories
         created_count = 0
         for path in paths_to_create:
-            Path(path).mkdir(parents=True, exist_ok=True)
+            path_obj = Path(path)
+            # Skip if it's a file (like dataset.yaml)
+            if path_obj.exists() and path_obj.is_file():
+                print(f"✓ Exists (file): {path}")
+                continue
+            path_obj.mkdir(parents=True, exist_ok=True)
             print(f"✓ Created: {path}")
             created_count += 1
 
-        # Platform-specific setup
-        if self.platform == 'kaggle':
-            # Create symlink for easier access
-            working_data = Path("/kaggle/working/data")
-            if not working_data.exists():
-                working_data.symlink_to("/kaggle/tmp/data")
-                print(f"✓ Created symlink: {working_data} -> /kaggle/tmp/data")
+        # No platform-specific setup needed with relative paths
 
         print(f"\n✅ {self.platform.upper()} environment setup complete!")
         print(f"📊 Created {created_count} directories")
@@ -144,27 +141,27 @@ class PlatformConfig:
 
         updates = {
             'kaggle': {
-                'data_path': '/kaggle/tmp/data/yolo/dataset.yaml',
-                'project_path': '/kaggle/working/results',
-                'device': 'auto',  # Kaggle auto-detects GPU
-                'workers': 2,  # Conservative for Kaggle
-                'cache': False,  # Disable caching to save memory
+                'data_path': './data/yolo/dataset.yaml',
+                'project_path': './results',
+                'device': 'auto',
+                'workers': 2,
+                'cache': False
             },
 
             'colab': {
-                'data_path': '/content/data/yolo/dataset.yaml',
-                'project_path': '/content/results',
-                'device': 'auto',  # Colab auto-detects GPU
-                'workers': 2,  # Conservative for Colab
-                'cache': False,  # Disable caching to save memory
+                'data_path': './data/yolo/dataset.yaml',
+                'project_path': './results',
+                'device': 'auto',
+                'workers': 2,
+                'cache': False
             },
 
             'local': {
                 'data_path': './data/yolo/dataset.yaml',
                 'project_path': './results',
                 'device': 'auto',
-                'workers': 4,  # Can use more workers locally
-                'cache': True,  # Enable caching if sufficient memory
+                'workers': 4,
+                'cache': True
             }
         }
 

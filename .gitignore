@@ -19,62 +19,195 @@ wheels/
 *.egg-info/
 .installed.cfg
 *.egg
+MANIFEST
 
 # Virtual environments
 venv/
 env/
 ENV/
+.venv/
+conda-meta/
 
-# IDE
+# IDE & Editors
 .vscode/
 .idea/
 *.swp
 *.swo
 *~
+.vim/
+.emacs.d/
+.spyproject
 
-# OS
+# OS Generated Files
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
 Thumbs.db
+desktop.ini
 
-# Project specific
+# Project Specific - Data & Models
 data/
-checkpoints/
+!data/.gitkeep
 logs/
+!logs/.gitkeep
 results/
+!results/.gitkeep
 models/
+!models/.gitkeep
+
+# Checkpoints - Keep important ones for resuming
+checkpoints/
+!checkpoints/.gitkeep
+!checkpoints/best.pt
+!checkpoints/last.pt
+!checkpoints/final_*.pt
+
+# All data directories use relative paths now
+
+# Model Files
 *.pt
 *.pth
 *.onnx
 *.pkl
-progress.json
-.claude/
+*.h5
+*.pb
+*.tflite
+*.mlmodel
+*.engine
+*.plan
 
-# Training outputs
+# Progress & Configuration
+progress.json
+training.log
+validation.log
+
+# Training Framework Outputs
 runs/
 yolo_results/
 wandb/
+tensorboard_logs/
+mlruns/
+outputs/
+lightning_logs/
 
-# Large files
+# Dataset Archives
 *.zip
 *.tar.gz
+*.tar.bz2
 *.rar
+*.7z
+*.gz
+*.bz2
 
-# Temporary files
+# Large Raw Data Files
+*.bin
+*.dat
+*.raw
+*.npy
+*.npz
+*.hdf5
+*.mat
+
+# Temporary Files
 tmp/
 temp/
 .tmp/
+*~
+.#*
+\#*#
 
-# Cache
+# Cache Directories
 .cache/
-__pycache__/
-*.pyc
+.pytest_cache/
+.coverage
+.nyc_output/
+.tox/
+.nox/
 
-# Jupyter
+# Jupyter Notebook
 .ipynb_checkpoints/
+*.ipynb
 
-# Environment variables
+# Environment Variables
 .env
 .env.local
+.env.*.local
+.envrc
 
-# Logs
+# Log Files
 *.log
+*.log.*
+log/
+logs/*.log
+
+# Documentation Build
+docs/_build/
+docs/build/
+site/
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.coverage.*
+coverage.xml
+*.cover
+.hypothesis/
+
+# Profiling
+*.prof
+*.pstats
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Secrets & Keys
+*.key
+*.pem
+*.crt
+*.csr
+*.p12
+*.pfx
+secrets.yaml
+secrets.json
+
+# Platform Specific
+# Google Colab
+.colab/
+sample_data/
+
+# Kaggle
+/kaggle/
+
+# AWS
+.aws/
+
+# Docker
+.dockerignore
+Dockerfile.*
+docker-compose.override.yml
+
+# Git
+*.patch
+*.diff
+
+# Backup Files
+*.bak
+*.backup
+*.old
+*.orig
+*.save
+
+# Compressed Files for Transfer
+transfer_*.tar.gz
+export_*.zip
+
+# Local Development
+local_config.yaml
+local_settings.py
+dev_notes.md

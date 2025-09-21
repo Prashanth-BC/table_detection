@@ -27,23 +27,43 @@ git clone https://github.com/Prashanth-BC/table_detection.git
 cd table_detection
 ```
 
-### 2. Platform-Specific Setup
+### 2. One-Command Setup & Training 🎯
+
+```bash
+# Complete pipeline: setup → data → train → resume
+./run_training.sh
+```
+
+**That's it!** The script automatically:
+- ✅ Detects platform (Colab/Kaggle/Local)
+- ✅ Installs dependencies
+- ✅ Creates/downloads data
+- ✅ Resumes from best checkpoint
+- ✅ Shows final results
+
+### 3. Advanced Options
+
+```bash
+./run_training.sh --help          # Show all options
+./run_training.sh --data-only     # Just prepare data
+./run_training.sh --train-only    # Just run training
+./run_training.sh --fresh         # Force fresh training
+```
+
+### 4. Manual Setup (Alternative)
 
 #### Google Colab 🔵
 ```bash
-# Colab optimized setup
 python colab_quickstart.py && python create_sample_dataset.py && python scripts/data_converter.py && python train_table_detection.py
 ```
 
 #### Kaggle 🟠
 ```bash
-# Kaggle optimized setup
 python kaggle_quickstart.py && python create_sample_dataset.py && python scripts/data_converter.py && python train_table_detection.py
 ```
 
 #### Universal/Local 🌐
 ```bash
-# Auto-detects platform and configures accordingly
 python setup_platform.py && python create_sample_dataset.py && python scripts/data_converter.py && python train_table_detection.py
 ```
 
@@ -74,6 +94,23 @@ python train_table_detection.py
 
 ```bash
 python train_table_detection.py --resume
+```
+
+## 💾 Storage Strategy
+
+**📂 What's Tracked in Git:**
+- `./checkpoints/best.pt` - Best model (~5MB)
+- `./checkpoints/last.pt` - Resume checkpoint (~5MB)
+- Code, configs, documentation
+
+**🚫 What's NOT in Git:**
+- `./data/` - Training datasets (1.9MB sample, 40+GB real)
+- `./logs/` - Training logs
+- `./results/` - Training outputs
+
+**🔄 Resume Training:**
+```bash
+python train_table_detection.py --resume --checkpoint_path="./checkpoints/best.pt"
 ```
 
 ## 🌐 Scale to Real Datasets
