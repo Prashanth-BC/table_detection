@@ -1,0 +1,49 @@
+# Dataset Configuration for Table Structure Detection
+datasets:
+  # PubLayNet - Large scale document layout analysis dataset
+  publaynet:
+    url: "https://dax-cdn.cdn.appdomain.cloud/dax-publaynet/1.0.0/publaynet.tar.gz"
+    type: "layout"
+    classes: ["text", "title", "list", "table", "figure"]
+    table_class_id: 3
+    description: "Microsoft Research dataset with 360K+ document images"
+
+  # TableBank - Large-scale table detection dataset
+  tablebank:
+    url: "https://github.com/doc-analysis/TableBank"
+    type: "table_detection"
+    classes: ["table"]
+    description: "417K+ high-quality labeled tables"
+
+  # FinTabNet - Financial table detection
+  fintabnet:
+    url: "https://developer.ibm.com/exchanges/data/all/fintabnet/"
+    type: "table_structure"
+    classes: ["table", "table_column", "table_row", "table_column_header", "table_projected_row_header", "table_data"]
+    description: "Financial table structure dataset"
+
+  # SciTSR - Scientific table structure recognition
+  scitsr:
+    url: "https://github.com/Academic-Hammer/SciTSR"
+    type: "table_structure"
+    classes: ["table", "table_column", "table_row", "table_cell"]
+    description: "Scientific table structure recognition dataset"
+
+# Class mapping for YOLO format
+yolo_classes:
+  0: "table"
+  1: "row"
+  2: "column"
+  3: "cell"
+
+# Data split ratios
+split_ratios:
+  train: 0.7
+  val: 0.2
+  test: 0.1
+
+# Image preprocessing
+image_settings:
+  input_size: 640
+  max_size: 1280
+  format: "jpg"
